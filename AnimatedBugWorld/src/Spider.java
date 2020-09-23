@@ -7,8 +7,8 @@ public class Spider extends Bug {
 	
 	// overloaded constructor taking name, x and y position and energy level.
 	public Spider(String name, int x, int y, int energy, int gridSize) {
-		super(defaultSpecies, name, defaultSymbol, x, y, energy, gridSize);
-		this.setFill(Color.BLACK); // spiders are black
+		super(defaultSpecies, name, defaultSymbol, x, y, energy, gridSize, "spider.png");
+//		this.setFill(Color.BLACK); // spiders are black
 	}
 	
 }

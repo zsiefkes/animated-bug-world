@@ -28,7 +28,7 @@ public class World {
 		// loop through all bugs
 		for (Bug b : this.bugs) {
 			// check if bug's position matches input arguments
-			if (b.getX() == x && b.getY() == y) {
+			if (b.getGridX() == x && b.getGridY() == y) {
 				// set boolean to true and break out of loop
 				isOccupied = true;
 				break;
@@ -38,7 +38,7 @@ public class World {
 		// loop through all plants
 		for (Plant p : this.plants) {
 			// check if bug's position matches input arguments
-			if (p.getX() == x && p.getY() == y) {
+			if (p.getGridX() == x && p.getGridY() == y) {
 				// set boolean to true and break out of loop
 				isOccupied = true;
 				break;
@@ -191,7 +191,7 @@ public class World {
 					
 					// check if bug is in this position. at most one bug will be as we are
 					// preventing multiple objects from occupying the same position
-					if (b.getX() == x && b.getY() == y) {
+					if (b.getGridX() == x && b.getGridY() == y) {
 						
 						// set flag to true
 						hasObject = true;
@@ -212,7 +212,7 @@ public class World {
 						
 						// check if bug is in this position. at most one bug will be as we are
 						// preventing multiple objects from occupying the same position
-						if (p.getX() == x && p.getY() == y) {
+						if (p.getGridX() == x && p.getGridY() == y) {
 							
 							// set flag to true
 							hasObject = true;
@@ -302,7 +302,7 @@ public class World {
 
 	public void addBug(Bug bug) {
 		// check incoming bug's position is not already occupied before adding to world
-		if (!isOccupied(bug.getX(), bug.getY())) {
+		if (!isOccupied(bug.getGridX(), bug.getGridY())) {
 			this.bugs.add(bug);
 		}
 	}

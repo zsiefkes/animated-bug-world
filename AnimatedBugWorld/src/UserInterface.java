@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,11 +15,11 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class UserInterface extends Application {
-	// set display sizes. width and height of window are determined by gridWidth, gridHeight and radius of object avatars (circles).
-	private int radius = 10;
-	private int gridWidth = 20, gridHeight = 10;
-	private int width = gridWidth * 2 * radius + radius;
-	private int height = gridHeight * 2 * radius + radius;
+	// set display sizes. width and height of window are determined by gridWidth, gridHeight and gridSize (length of square grid tiles)
+	private int gridSize = 20;
+	private int gridWidth = 30, gridHeight = 15;
+	private int width = gridWidth * gridSize;
+	private int height = gridHeight * gridSize;
 	private int btnHeight = 40; // additional height to add to bottom of window for pause/play button
 
 	// declare bug world related fields
@@ -38,11 +39,11 @@ public class UserInterface extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		
 		// create bug world
-		World world = new World(gridWidth, gridHeight, radius * 2);
+		world = new World(gridWidth, gridHeight, gridSize);
 		
 		// populate world
-		world.genBugs(10);
-		world.genPlants(10);
+		world.genBugs(25);
+		world.genPlants(45);
 		
 		// fetch animals and geographic features
 		bugs = world.getBugs();
@@ -58,6 +59,9 @@ public class UserInterface extends Application {
 			worldObjects.getChildren().add(p);
 		}
 
+		// set initial positions
+		updatePositions();
+		
 		// create play/pause button to control island animation
 		playPauseButton = new Button();
 		playPauseButton.setText("Play");
@@ -87,17 +91,11 @@ public class UserInterface extends Application {
 		KeyFrame frame = new KeyFrame(Duration.millis(500), new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				// each new frame should update the island.
+				// run world object (moves bugs)
 				world.updateWorld();
 
-				// update bug positions
-				for (Bug b : bugs) {
-					System.out.println(b.toString());
-					// update the position
-					b.setCenterX(b.getPosCenterX());
-					b.setCenterY(b.getPosCenterY());
-				}
-
+				// update object positions on GUI
+				updatePositions();
 			}
 		});
 		
@@ -113,6 +111,19 @@ public class UserInterface extends Application {
 		primaryStage.setTitle("Animated Bug World");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+	}
+	
+	private void updatePositions() {
+		// update bug positions
+		for (Bug b : bugs) {
+			b.setX(b.getPosCenterX());
+			b.setY(b.getPosCenterY());
+		
+		// update plant positions
+		for (Plant p : plants) {
+			p.setX(p.getPosCenterX());
+			p.setY(p.getPosCenterY());
+		}
 	}
 
 	public static void main(String[] args) {

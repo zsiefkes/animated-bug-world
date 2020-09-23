@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-public class Bug extends Circle {
+public class Bug extends ImageView {
 	
 	// instance attributes
 	private String species;
@@ -19,8 +19,10 @@ public class Bug extends Circle {
 	private static ArrayList<Integer> idList = new ArrayList<Integer>(); 
 	
 	// overloaded constructor function taking all attributes except id as arguments. also does not initiate with a world.
-	public Bug(String species, String name, char symbol, int x, int y, int energy, int gridSize) {
-		super(gridSize * x + gridSize / 2, gridSize * y + gridSize / 2, gridSize / 2);
+	public Bug(String species, String name, char symbol, int x, int y, int energy, int gridSize, String imageFileName) {
+		super(new Image(imageFileName, gridSize, gridSize, false, false));
+//		super(imageFileName, gridSize, gridSize, false, false);
+//		super(gridSize * x + gridSize / 2, gridSize * y + gridSize / 2, gridSize / 2);
 //		super(gridSize * x + gridSize, gridSize * y + gridSize, gridSize / 2);
 		this.species = species;
 		this.name = name;
@@ -111,29 +113,32 @@ public class Bug extends Circle {
 	// Getters and setters
 	
 	// return position of center of circle for purpose of displaying in GUI
+	// bottom line returns coordinates of top-left point of square image for displaying on grid
 	public int getPosCenterX() {
-		return x * gridSize + gridSize / 2; 
+//		return x * gridSize + gridSize / 2; 
 //		return x * gridSize + gridSize; 
+		return x * gridSize; 
 	}
 	public int getPosCenterY() {
-		return y * gridSize + gridSize / 2; 
+//		return y * gridSize + gridSize / 2; 
 //		return y * gridSize + gridSize; 
+		return y * gridSize; 
 	}
 	
 	// positions within grid
-	public int getX() {
+	public int getGridX() {
 		return x;
 	}
 
-	public void setX(int x) {
+	public void setGridX(int x) {
 		this.x = x;
 	}
 
-	public int getY() {
+	public int getGridY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setGridY(int y) {
 		this.y = y;
 	}
 

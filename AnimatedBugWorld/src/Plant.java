@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-public class Plant extends Circle {
+public class Plant extends ImageView {
 
 	// instance attributes
 	private int size; // integer value between 0 and 9.
@@ -12,15 +12,15 @@ public class Plant extends Circle {
 	private int y;
 	private int gridSize;
 	private World world; // world plant belongs to, if any
-
-	// static field to store ids
-	private static ArrayList<Integer> idList = new ArrayList<Integer>();
 	
 	// constructor
 	public Plant(int size, char symbol, int x, int y, int gridSize) {
-		super(gridSize * x + gridSize / 2, gridSize * y + gridSize / 2, gridSize / 2);
+		super(new Image("plant.png", gridSize, gridSize, false, false));
+		
+//		super("plant.png", gridSize, gridSize, false, false);
+//		super(gridSize * x + gridSize / 2, gridSize * y + gridSize / 2, gridSize / 2);
 //		super(gridSize * x + gridSize, gridSize * y + gridSize, gridSize / 2);
-		this.setFill(Color.DARKOLIVEGREEN); // plants are green
+//		this.setFill(Color.DARKOLIVEGREEN); // plants are green
 		this.size = size;
 		this.symbol = symbol;
 		this.x = x;
@@ -30,15 +30,15 @@ public class Plant extends Circle {
 		this.world = null;
 	}
 
-	// if you wanted to set the symbol as the size, can use .charAt??
-	
-	// find the biggest plant
-//	public Plant biggestPlant(ArrayList<Plant> plants) {
-//		
-//		
-//	}
-	
 	// getters and setters
+	
+	// returns coordinates of top-left point of square image for displaying on grid
+	public int getPosCenterX() {
+		return x * gridSize; 
+	}
+	public int getPosCenterY() {
+		return y * gridSize; 
+	}
 
 	public int getSize() {
 		return size;
@@ -56,28 +56,19 @@ public class Plant extends Circle {
 		this.symbol = symbol;
 	}
 	
-	public int getPosCenterX() {
-		return x * gridSize + gridSize / 2; 
-//		return x * gridSize + gridSize; 
-	}
-	public int getPosCenterY() {
-		return y * gridSize + gridSize / 2; 
-//		return y * gridSize + gridSize; 
-	}
-	
-	public int getX() {
+	public int getGridX() {
 		return x;
 	}
 
-	public void setX(int x) {
+	public void setGridX(int x) {
 		this.x = x;
 	}
 
-	public int getY() {
+	public int getGridY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setGridY(int y) {
 		this.y = y;
 	}
 
