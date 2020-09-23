@@ -1,18 +1,21 @@
 import java.util.ArrayList;
 
 public class World {
-	// height and width
+	// height and width in number of grid squares
 	private int width;
 	private int height;
+	// length of each grid square
+	private int gridSize;
 
 	// fields for storing unspecified number of bugs and plants 
 	ArrayList<Bug> bugs = new ArrayList<Bug>();
 	ArrayList<Plant> plants = new ArrayList<Plant>();
 	
 	// constructor taking width and height
-	public World(int width, int height) {
+	public World(int width, int height, int gridSize) {
 		this.width = width;
 		this.height = height;
+		this.gridSize = gridSize;
 	}
 
 	// check if anything is residing in a certain position and return a boolean
@@ -70,7 +73,7 @@ public class World {
 			char symbol = '+';
 			
 			// create plant
-			Plant plant = new Plant(size, symbol, x, y);
+			Plant plant = new Plant(size, symbol, x, y, gridSize);
 			
 			// set world on plant to this world
 			plant.setWorld(this);
@@ -108,15 +111,14 @@ public class World {
 
 			// randomly decide which subclass of bug, create bug and add to store
 			double rand = Math.random();
-			System.out.printf("Random number: %.2f%n", rand);
 
 			Bug bug = null;
 			if (rand < 0.334) {
-				bug = new Grasshopper(name, x, y, energy);
+				bug = new Grasshopper(name, x, y, energy, gridSize);
 			} else if (rand < 0.667) {
-				bug = new Spider(name, x, y, energy);
+				bug = new Spider(name, x, y, energy, gridSize);
 			} else if (rand < 1) {
-				bug = new Ant(name, x, y, energy);
+				bug = new Ant(name, x, y, energy, gridSize);
 			}
 
 			// add bug to this world's list of bugs, and to bug's world attribute

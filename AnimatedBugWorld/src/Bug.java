@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class Bug {
+public class Bug extends Circle {
 	
 	// instance attributes
 	private String species;
@@ -10,31 +11,23 @@ public class Bug {
 	private char symbol;
 	private int x; // horizontal position in grid
 	private int y; // vertical position in grid
-	private int gridSize;
+	private int gridSize; 
 	private int energy;
 	private World world; // world the bug belongs to, if any.
 	
 	// static field to store ids. don't forget it has to be static!!!
 	private static ArrayList<Integer> idList = new ArrayList<Integer>(); 
-
-	// overloaded constructor, takes no arguments and sets pre-defined attributes 
-	public Bug() {		
-		this.species = "Coccinella septempunctata";
-		this.name = "Frankie";
-		this.symbol = '*';
-		this.x = 0;
-		this.y = 0;
-		this.energy = 100;
-		this.world = null;
-	}
 	
 	// overloaded constructor function taking all attributes except id as arguments. also does not initiate with a world.
-	public Bug(String species, String name, char symbol, int x, int y, int energy) {
+	public Bug(String species, String name, char symbol, int x, int y, int energy, int gridSize) {
+		super(gridSize * x + gridSize / 2, gridSize * y + gridSize / 2, gridSize / 2);
+//		super(gridSize * x + gridSize, gridSize * y + gridSize, gridSize / 2);
 		this.species = species;
 		this.name = name;
 		this.symbol = symbol;
 		this.x = x;
 		this.y = y;
+		this.gridSize = gridSize;
 		this.energy = energy;
 		this.world = null;
 	}
@@ -113,7 +106,36 @@ public class Bug {
 		this.x = newX;
 		this.y = newY;
 	}
-	// Getters and setters (no setId method)
+	
+	
+	// Getters and setters
+	
+	// return position of center of circle for purpose of displaying in GUI
+	public int getPosCenterX() {
+		return x * gridSize + gridSize / 2; 
+//		return x * gridSize + gridSize; 
+	}
+	public int getPosCenterY() {
+		return y * gridSize + gridSize / 2; 
+//		return y * gridSize + gridSize; 
+	}
+	
+	// positions within grid
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
 
 	public String getSpecies() {
 		return species;
@@ -137,22 +159,6 @@ public class Bug {
 
 	public void setSymbol(char symbol) {
 		this.symbol = symbol;
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
 	}
 
 	public int getEnergy() {
